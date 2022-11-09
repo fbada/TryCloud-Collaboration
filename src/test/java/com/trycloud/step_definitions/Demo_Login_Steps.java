@@ -1,13 +1,13 @@
 package com.trycloud.step_definitions;
 
-import com.trycloud.pages.LoginPage;
+import com.trycloud.pages.Login_Page_Default;
 import com.trycloud.utilities.BrowserUtils;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 public class Demo_Login_Steps {
-    LoginPage cloudDriver= new LoginPage();
+    Login_Page_Default cloudDriver= new Login_Page_Default();
     @Given("user on the login page")
     public void user_on_the_login() {
 

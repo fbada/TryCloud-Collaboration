@@ -1,7 +1,6 @@
-package com.trycloud.pages;
+package com.trycloud.step_definitions;
 
 import com.trycloud.utilities.BrowserUtils;
-
 import com.trycloud.utilities.Config;
 import com.trycloud.utilities.Driver;
 import org.openqa.selenium.WebElement;
