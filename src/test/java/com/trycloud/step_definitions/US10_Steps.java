@@ -9,6 +9,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.interactions.Actions;
 
 public class US10_Steps {
@@ -77,10 +78,13 @@ public class US10_Steps {
         Assert.assertTrue(Double.parseDouble(beforeStorage)< Double.parseDouble(afterStorage));
 
 
-
+//Delete the element
         Actions action = new Actions(Driver.getDriver());
-        action.moveToElement(fileAccessPage.getfileUploaded(fileName), -100, 0).click().perform();
+
+        BrowserUtils.scrollToElement(fileAccessPage.getfileUploaded(fileName));
         BrowserUtils.waitFor(1);
+        action.moveToElement(fileAccessPage.getfileUploaded(fileName), -100, 0).click().perform();
+
 
 
 
