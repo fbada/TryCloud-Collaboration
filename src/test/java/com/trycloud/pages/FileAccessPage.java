@@ -3,7 +3,6 @@ package com.trycloud.pages;
 
 import com.trycloud.utilities.BrowserUtils;
 import com.trycloud.utilities.Driver;
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -24,7 +23,7 @@ public class FileAccessPage {
     @FindBy (xpath = "//div[@class='toastify on dialogs error toastify-right toastify-top']/span")
     public WebElement notEnoughSpaceBtn;
 
-    @FindBy(xpath = "//a[@class='menuitem action delete permanent']//span[@class='icon icon-delete']")
+    @FindBy(xpath = "//span[.='Delete file']/..")
     public WebElement deleteDropdown;
 
     @FindBy(xpath = "//th[@class='column-name']//span[.='Actions']")
@@ -98,8 +97,8 @@ public class FileAccessPage {
 
     }
 
-public WebElement getfileUploaded(String name){
-      return  Driver.getDriver().findElement(By.xpath("//span[.='"+name+"']"));
+public WebElement getfileUploadedAction(String name){
+      return  Driver.getDriver().findElement(By.xpath("//span[.='"+name+"' and @class='innernametext']/../..//a[@class='action action-menu permanent']"));
 }
 
     public void actionButtonLastFileFav(int index) {
@@ -157,25 +156,6 @@ public WebElement getfileUploaded(String name){
 
     }
 
-    public void clickSettingCheckboxes() {
-        for (WebElement checkBox : settingsCheckboxes) {
-           checkBox.click();
-           Assert.assertTrue(checkBox.isDisplayed());
-            checkBox.click();
-        }
-    }
-
-
-//    public static String nameOfRandomFile;
-//
-//    public void chooseRandomFile() {
-//
-//        int randomNumber = new Faker().number().numberBetween(1, files.size());
-//        nameOfRandomFile = Driver.getDriver().findElement(By.xpath("(//span[@class='innernametext'])" +
-//                "[" + randomNumber + "]")).getText();
-//        Driver.getDriver().findElement(By.xpath("(//tbody//span[@class='icon icon-more'])[" + randomNumber + "]")).click();
-//        DeleteOption.click();
-//    }
 
     public void goToSubModule(String subModule) {
         Driver.getDriver().findElement(By.xpath("//a[.='" + subModule + "']")).click();

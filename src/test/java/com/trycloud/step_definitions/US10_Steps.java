@@ -9,6 +9,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
 import java.util.concurrent.TimeUnit;
@@ -20,7 +21,7 @@ public class US10_Steps {
     FileAccessPage fileAccessPage = new FileAccessPage();
     String systemPath = System.getProperty("user.dir");
     String filePath = systemPath + "/src/test/resources/UploadFileAda/Jenkins.png";
-    String fileName = filePath.substring(filePath.lastIndexOf('/')+1, filePath.lastIndexOf('.'));
+    String fileName = filePath.substring(filePath.lastIndexOf('/') + 1, filePath.lastIndexOf('.'));
 
     @When("user on the dashboard page")
     public void user_on_the_dashboard_page() {
@@ -41,9 +42,15 @@ public class US10_Steps {
 
     @Then("the user should be able to click any buttons")
     public void the_user_should_be_able_to_click_any_buttons() {
-        fileAccessPage.clickSettingCheckboxes();
 
+        for (WebElement checkBox : fileAccessPage.settingsCheckboxes) {
+            BrowserUtils.highlight(checkBox);
+            checkBox.click();
+            Assert.assertTrue(checkBox.isDisplayed());
+            checkBox.click();
+        }
     }
+
 
     String beforeStorage, afterStorage;
 
@@ -61,25 +68,24 @@ public class US10_Steps {
         BrowserUtils.waitFor(5);
 
         // Check if upload failed due to Not Enough Space and retry
-        try{
+        try {
             Driver.getDriver().manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
             Assert.assertTrue(fileAccessPage.notEnoughSpaceBtn.isDisplayed());
             fileAccessPage.notEnoughSpaceBtn.click();
             BrowserUtils.sleep(1);
             fileAccessPage.uploadStart.sendKeys(filePath);
             BrowserUtils.waitFor(3);
-        } catch (Exception e){
+        } catch (Exception e) {
             Driver.getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
         }
     }
 
 
-
     @When("user refresh the page")
     public void user_refresh_the_page() {
         Driver.getDriver().navigate().refresh();
-        BrowserUtils.sleep(3);
+        BrowserUtils.sleep(2);
     }
 
     @Then("the user should be able to see storage usage is increased")
@@ -90,26 +96,22 @@ public class US10_Steps {
 
         System.out.println(afterStorage);
 
-        BrowserUtils.waitFor(2);
-        Assert.assertTrue(Double.parseDouble(beforeStorage)< Double.parseDouble(afterStorage));
+        BrowserUtils.waitFor(1);
+        Assert.assertTrue(Double.parseDouble(beforeStorage) < Double.parseDouble(afterStorage));
 
 
 //Delete the element
         Actions action = new Actions(Driver.getDriver());
 
-        if(fileAccessPage.reccomendationsToggle.isSelected()){
-            fileAccessPage.reccomendationsToggle.click();
-            Assert.assertFalse(fileAccessPage.reccomendationsToggle.isSelected());
-            BrowserUtils.waitFor(1);
-        }
 
-        BrowserUtils.scrollToElement(fileAccessPage.getfileUploaded(fileName));
+        BrowserUtils.scrollToElement(fileAccessPage.getfileUploadedAction(fileName));
         BrowserUtils.waitFor(1);
-        action.moveToElement(fileAccessPage.getfileUploaded(fileName), -110, 0).click().perform();
+        BrowserUtils.highlight(fileAccessPage.getfileUploadedAction(fileName));
 
-        action.moveToElement(fileAccessPage.actionsInHeader).click().perform();
+        BrowserUtils.clickWithJS(fileAccessPage.getfileUploadedAction(fileName));
         BrowserUtils.waitFor(1);
-       action.click(fileAccessPage.deleteDropdown).perform();
+        BrowserUtils.highlight(fileAccessPage.deleteDropdown);
+        BrowserUtils.clickWithJS(fileAccessPage.deleteDropdown);
         BrowserUtils.waitFor(1);
 
 
