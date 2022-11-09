@@ -1,4 +1,4 @@
-@US10
+
 Feature: : As a user, I should be able to update settings.
 Story: As a user, I should be able to update settings.
 
@@ -12,7 +12,7 @@ Story: As a user, I should be able to update settings.
     And user clicks Settings on the left bottom corner
     Then the user should be able to click any buttons
 
-
+  @US10
   Scenario: Verify users to see the app storage usage
 
     And user checks the current storage usage

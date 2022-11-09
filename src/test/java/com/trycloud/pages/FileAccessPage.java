@@ -18,6 +18,12 @@ public class FileAccessPage {
         PageFactory.initElements(Driver.getDriver(), this);
     }
 
+    @FindBy (xpath = "//div[@id='uploadprogressbar']")
+    public WebElement uploadBar;
+
+    @FindBy (xpath = "//div[@class='toastify on dialogs error toastify-right toastify-top']/span")
+    public WebElement notEnoughSpaceBtn;
+
     @FindBy(xpath = "//a[@class='menuitem action delete permanent']//span[@class='icon icon-delete']")
     public WebElement deleteDropdown;
 
@@ -54,8 +60,8 @@ public class FileAccessPage {
     @FindBy(xpath = "//span[@class='icon icon-add']")
     public WebElement addButton;
 
-    @FindBy(xpath = "//input[@id='file_upload_start']")
-    public WebElement uploadFileButton;
+    @FindBy (xpath = "//input[@id='file_upload_start']")
+    public WebElement uploadStart;
 
     @FindBy(xpath = "//div[@id='uploadprogressbar']")
     public WebElement progressBar;

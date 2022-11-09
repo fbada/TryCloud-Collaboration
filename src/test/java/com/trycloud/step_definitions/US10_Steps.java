@@ -12,13 +12,16 @@ import org.junit.Assert;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.interactions.Actions;
 
+import java.util.concurrent.TimeUnit;
+
 public class US10_Steps {
 
     LoginPage loginPage = new LoginPage();
     ModulesPage modulesPage = new ModulesPage();
     FileAccessPage fileAccessPage = new FileAccessPage();
-    public final String pathFile = "/Users/rds1/Desktop/CYDEO/Automation/TryCloud-Collaboration/src/test/resources/UploadFileAda/Jenkins.png";
-    String fileName = pathFile.substring(pathFile.lastIndexOf('/')+1, pathFile.lastIndexOf('.'));
+    String systemPath = System.getProperty("user.dir");
+    String filePath = systemPath + "/src/test/resources/UploadFileAda/Jenkins.png";
+    String fileName = filePath.substring(filePath.lastIndexOf('/')+1, filePath.lastIndexOf('.'));
 
     @When("user on the dashboard page")
     public void user_on_the_dashboard_page() {
@@ -54,15 +57,27 @@ public class US10_Steps {
     @And("user uploads file with the {string} file option")
     public void userUploadsFileWithTheOption(String arg0) {
 
-        fileAccessPage.addButton.click();
-        fileAccessPage.uploadFileButton.sendKeys(pathFile);
-        BrowserUtils.waitFor(4);
+        fileAccessPage.uploadStart.sendKeys(filePath);
+        BrowserUtils.waitFor(5);
+
+        // Check if upload failed due to Not Enough Space and retry
+        try{
+            Driver.getDriver().manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+            Assert.assertTrue(fileAccessPage.notEnoughSpaceBtn.isDisplayed());
+            fileAccessPage.notEnoughSpaceBtn.click();
+            BrowserUtils.sleep(1);
+            fileAccessPage.uploadStart.sendKeys(filePath);
+            BrowserUtils.waitFor(3);
+        } catch (Exception e){
+            Driver.getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+        }
     }
+
+
 
     @When("user refresh the page")
     public void user_refresh_the_page() {
-
-        Actions actions = new Actions(Driver.getDriver());
         Driver.getDriver().navigate().refresh();
         BrowserUtils.sleep(3);
     }
@@ -72,9 +87,10 @@ public class US10_Steps {
         afterStorage = fileAccessPage.storageAmount.getText();
         afterStorage = afterStorage.substring(0, afterStorage.indexOf(' '));
         beforeStorage = beforeStorage.substring(0, beforeStorage.indexOf(' '));
+
         System.out.println(afterStorage);
 
-        BrowserUtils.waitFor(3);
+        BrowserUtils.waitFor(2);
         Assert.assertTrue(Double.parseDouble(beforeStorage)< Double.parseDouble(afterStorage));
 
 
@@ -84,9 +100,6 @@ public class US10_Steps {
         BrowserUtils.scrollToElement(fileAccessPage.getfileUploaded(fileName));
         BrowserUtils.waitFor(1);
         action.moveToElement(fileAccessPage.getfileUploaded(fileName), -100, 0).click().perform();
-
-
-
 
         action.moveToElement(fileAccessPage.actionsInHeader).click().perform();
         BrowserUtils.waitFor(1);
