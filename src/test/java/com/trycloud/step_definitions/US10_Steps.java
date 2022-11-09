@@ -1,7 +1,7 @@
 package com.trycloud.step_definitions;
 
 import com.trycloud.pages.FileAccessPage;
-import com.trycloud.pages.Login_Page_Default;
+import com.trycloud.pages.LoginPage;
 import com.trycloud.pages.ModulesPage;
 import com.trycloud.utilities.BrowserUtils;
 import com.trycloud.utilities.Driver;
@@ -9,7 +9,6 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.interactions.Actions;
 
 import java.util.concurrent.TimeUnit;
@@ -27,6 +26,7 @@ public class US10_Steps {
     public void user_on_the_dashboard_page() {
         loginPage.login();
     }
+
     @When("user clicks Settings on the left bottom corner")
     public void user_clicks_settings_on_the_left_bottom_corner() {
         fileAccessPage.settingsButton.click();
@@ -97,9 +97,15 @@ public class US10_Steps {
 //Delete the element
         Actions action = new Actions(Driver.getDriver());
 
+        if(fileAccessPage.reccomendationsToggle.isSelected()){
+            fileAccessPage.reccomendationsToggle.click();
+            Assert.assertFalse(fileAccessPage.reccomendationsToggle.isSelected());
+            BrowserUtils.waitFor(1);
+        }
+
         BrowserUtils.scrollToElement(fileAccessPage.getfileUploaded(fileName));
         BrowserUtils.waitFor(1);
-        action.moveToElement(fileAccessPage.getfileUploaded(fileName), -100, 0).click().perform();
+        action.moveToElement(fileAccessPage.getfileUploaded(fileName), -110, 0).click().perform();
 
         action.moveToElement(fileAccessPage.actionsInHeader).click().perform();
         BrowserUtils.waitFor(1);
@@ -107,9 +113,13 @@ public class US10_Steps {
         BrowserUtils.waitFor(1);
 
 
-
+        Driver.closeDriver();
 
     }
 
 
+    @When("the user enters {string} and {string}")
+    public void theUserEntersAnd(String arg0, String arg1) {
+        loginPage.loginInPageCred(arg0, arg1);
+    }
 }

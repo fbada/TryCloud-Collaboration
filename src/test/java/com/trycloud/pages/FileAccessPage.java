@@ -48,6 +48,9 @@ public class FileAccessPage {
     @FindBy(xpath = "//aside//span[@class='app-sidebar-tabs__tab-icon icon-comment']/..")
     public WebElement commentIcon;
 
+    @FindBy(xpath = "//label[@for='recommendationsEnabledToggle']")
+    public WebElement reccomendationsToggle;
+
     @FindBy(xpath = "//a[@class='nav-icon-trashbin svg']")
     public WebElement detetedFiles;
 
