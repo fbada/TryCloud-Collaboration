@@ -37,7 +37,7 @@ public class US10_Steps {
     @When("the user clicks the {string} module")
     public void the_user_clicks_the_module(String string) {
         modulesPage.accessModules(string).click();
-        BrowserUtils.waitFor(4);
+        BrowserUtils.waitFor(2);
     }
 
     @Then("the user should be able to click any buttons")
@@ -46,7 +46,8 @@ public class US10_Steps {
         for (WebElement checkBox : fileAccessPage.settingsCheckboxes) {
             BrowserUtils.highlight(checkBox);
             checkBox.click();
-            Assert.assertTrue(checkBox.isSelected());
+            BrowserUtils.waitFor(1);
+           Assert.assertTrue(checkBox.isEnabled());
             checkBox.click();
         }
     }
