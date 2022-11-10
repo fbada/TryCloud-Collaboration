@@ -13,7 +13,7 @@ import java.net.URL;
 
 public class Driver {
 
-
+    static String gridAddress = Config.getProperty("gridAddress");
     static String browser;
 
     private Driver() {
@@ -30,9 +30,6 @@ public class Driver {
             switch (browser) {
                 case "remote-chrome":
                     try {
-
-
-                        String gridAddress = "localhost";
                         URL url = new URL("http://" + gridAddress + ":4444/wd/hub");
                         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
                         desiredCapabilities.setBrowserName("chrome");
@@ -45,7 +42,6 @@ public class Driver {
                 case "remote-firefox":
 
                     try {
-                        String gridAddress = "localhost";
                         URL url = new URL("http://" + gridAddress + ":4444/wd/hub");
                         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
                         desiredCapabilities.setBrowserName("firefox");
