@@ -46,7 +46,7 @@ public class US10_Steps {
         for (WebElement checkBox : fileAccessPage.settingsCheckboxes) {
             BrowserUtils.highlight(checkBox);
             checkBox.click();
-            Assert.assertTrue(checkBox.isDisplayed());
+            Assert.assertTrue(checkBox.isSelected());
             checkBox.click();
         }
     }
