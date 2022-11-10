@@ -102,23 +102,17 @@ public class US10_Steps {
 
 //Delete the element
         Actions action = new Actions(Driver.getDriver());
-
-
         BrowserUtils.scrollToElement(fileAccessPage.getfileUploadedAction(fileName));
         BrowserUtils.waitFor(1);
         BrowserUtils.highlight(fileAccessPage.getfileUploadedAction(fileName));
-
         BrowserUtils.clickWithJS(fileAccessPage.getfileUploadedAction(fileName));
         BrowserUtils.waitFor(1);
         BrowserUtils.highlight(fileAccessPage.deleteDropdown);
         BrowserUtils.clickWithJS(fileAccessPage.deleteDropdown);
         BrowserUtils.waitFor(1);
 
-
-        Driver.closeDriver();
-
+      //  Driver.closeDriver();
     }
-
 
     @When("the user enters {string} and {string}")
     public void theUserEntersAnd(String arg0, String arg1) {
