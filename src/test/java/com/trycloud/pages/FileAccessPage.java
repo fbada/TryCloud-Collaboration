@@ -17,10 +17,10 @@ public class FileAccessPage {
         PageFactory.initElements(Driver.getDriver(), this);
     }
 
-    @FindBy (xpath = "//div[@id='uploadprogressbar']")
+    @FindBy(xpath = "//div[@id='uploadprogressbar']")
     public WebElement uploadBar;
 
-    @FindBy (xpath = "//div[@class='toastify on dialogs error toastify-right toastify-top']/span")
+    @FindBy(xpath = "//div[@class='toastify on dialogs error toastify-right toastify-top']/span")
     public WebElement notEnoughSpaceBtn;
 
     @FindBy(xpath = "//span[.='Delete file']/..")
@@ -33,7 +33,7 @@ public class FileAccessPage {
     public WebElement moreAsideAction;
 
     @FindBy(xpath = "//aside//span[@class='icon icon-delete']")
-    public  WebElement deleteCommentIcon;
+    public WebElement deleteCommentIcon;
 
     @FindBy(xpath = "//a[@class='menuitem action action-details permanent']")
     public WebElement detailsOption;
@@ -62,7 +62,7 @@ public class FileAccessPage {
     @FindBy(xpath = "//span[@class='icon icon-add']")
     public WebElement addButton;
 
-    @FindBy (xpath = "//input[@id='file_upload_start']")
+    @FindBy(xpath = "//input[@id='file_upload_start']")
     public WebElement uploadStart;
 
     @FindBy(xpath = "//div[@id='uploadprogressbar']")
@@ -88,7 +88,6 @@ public class FileAccessPage {
     public List<WebElement> folderFiles;
 
     public void actionButtonLastFile() {
-
         String xpath = "(//tbody//span[@class='icon icon-more'])[" + listActions.size() + "]";
         Driver.getDriver().findElement(By.xpath(xpath)).click();
         BrowserUtils.waitFor(2);
@@ -97,9 +96,9 @@ public class FileAccessPage {
 
     }
 
-public WebElement getfileUploadedAction(String name){
-      return  Driver.getDriver().findElement(By.xpath("//span[.='"+name+"' and @class='innernametext']/../..//a[@class='action action-menu permanent']"));
-}
+    public WebElement getfileUploadedAction(String name) {
+        return Driver.getDriver().findElement(By.xpath("//span[.='" + name + "' and @class='innernametext']/../..//a[@class='action action-menu permanent']"));
+    }
 
     public void actionButtonLastFileFav(int index) {
 
@@ -153,9 +152,7 @@ public WebElement getfileUploadedAction(String name){
     public WebElement subModule(String string) {
 
         return Driver.getDriver().findElement(By.xpath("//li/a[.='" + string + "']"));
-
     }
-
 
     public void goToSubModule(String subModule) {
         Driver.getDriver().findElement(By.xpath("//a[.='" + subModule + "']")).click();
@@ -166,6 +163,23 @@ public WebElement getfileUploadedAction(String name){
         String sf = "//li[starts-with(@class,'nav')]/a[text()='" + moduleName + "']";
         actions.moveToElement(Driver.getDriver().findElement(By.xpath(sf))).click().perform();
     }
+
+    public void deleteUploadedFile(String fileName) {
+        Actions action = new Actions(Driver.getDriver());
+        BrowserUtils.scrollToElement(getfileUploadedAction(fileName));
+        BrowserUtils.waitFor(1);
+        BrowserUtils.highlight(getfileUploadedAction(fileName));
+        BrowserUtils.clickWithJS(getfileUploadedAction(fileName));
+        BrowserUtils.waitFor(1);
+        BrowserUtils.highlight(deleteDropdown);
+        BrowserUtils.clickWithJS(deleteDropdown);
+        BrowserUtils.waitFor(1);
+    }
+
+    public boolean findFile(String filename){
+        return Driver.getDriver().findElement(By.xpath("//span[.='"+filename+"']")).isDisplayed();
+    }
+
 }
 
 

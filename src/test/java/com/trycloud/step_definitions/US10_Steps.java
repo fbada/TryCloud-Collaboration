@@ -65,6 +65,8 @@ public class US10_Steps {
     @And("user uploads file with the {string} file option")
     public void userUploadsFileWithTheOption(String arg0) {
 
+        fileAccessPage.addButton.click();
+        BrowserUtils.waitForInvisibilityOf(fileAccessPage.uploadStart);
         fileAccessPage.uploadStart.sendKeys(filePath);
         BrowserUtils.waitFor(5);
 
@@ -101,16 +103,8 @@ public class US10_Steps {
         Assert.assertTrue(Double.parseDouble(beforeStorage) < Double.parseDouble(afterStorage));
 
 
-//Delete the element
-        Actions action = new Actions(Driver.getDriver());
-        BrowserUtils.scrollToElement(fileAccessPage.getfileUploadedAction(fileName));
-        BrowserUtils.waitFor(1);
-        BrowserUtils.highlight(fileAccessPage.getfileUploadedAction(fileName));
-        BrowserUtils.clickWithJS(fileAccessPage.getfileUploadedAction(fileName));
-        BrowserUtils.waitFor(1);
-        BrowserUtils.highlight(fileAccessPage.deleteDropdown);
-        BrowserUtils.clickWithJS(fileAccessPage.deleteDropdown);
-        BrowserUtils.waitFor(1);
+  //Delete the element
+      fileAccessPage.deleteUploadedFile(fileName);
 
       //  Driver.closeDriver();
     }
