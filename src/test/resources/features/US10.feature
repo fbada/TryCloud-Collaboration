@@ -27,7 +27,7 @@ Feature: As a user, I should be able to update their settings.
 
     Examples:
       | username | password    |
-      | User5    | Userpass123 |
-      | User34   | Userpass123 |
-      | User64   | Userpass123 |
+      #| User4    | Userpass123 |
+     # | User33   | Userpass123 |
+    #  | User63   | Userpass123 |
       | User94   | Userpass123 |

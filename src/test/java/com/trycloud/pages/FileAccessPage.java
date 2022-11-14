@@ -62,7 +62,7 @@ public class FileAccessPage {
     @FindBy(xpath = "//span[@class='icon icon-add']")
     public WebElement addButton;
 
-    @FindBy(xpath = "//input[@id='file_upload_start']")
+    @FindBy (xpath = "//input[@id='file_upload_start']")
     public WebElement uploadStart;
 
     @FindBy(xpath = "//div[@id='uploadprogressbar']")

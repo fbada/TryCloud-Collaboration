@@ -66,7 +66,7 @@ public class US10_Steps {
     public void userUploadsFileWithTheOption(String arg0) {
 
         fileAccessPage.addButton.click();
-        BrowserUtils.waitForInvisibilityOf(fileAccessPage.uploadStart);
+        BrowserUtils.waitFor(2);
         fileAccessPage.uploadStart.sendKeys(filePath);
         BrowserUtils.waitFor(5);
 

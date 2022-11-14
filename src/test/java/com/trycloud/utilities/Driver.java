@@ -68,16 +68,19 @@ public class Driver {
                 case "chrome-headless":
                     WebDriverManager.chromedriver().setup();
                     driver = new ChromeDriver(new ChromeOptions().setHeadless(true));
+                    driver.manage().window().maximize();
                     break;
 
                 case "firefox":
                     WebDriverManager.firefoxdriver().setup();
                     driver = new FirefoxDriver();
+                    driver.manage().window().maximize();
                     break;
 
                 case "firefox-headless":
                     WebDriverManager.firefoxdriver().setup();
                     driver = new FirefoxDriver(new FirefoxOptions().setHeadless(true));
+                    driver.manage().window().maximize();
                     break;
 
                 case "ie":
@@ -91,6 +94,7 @@ public class Driver {
                 case "edge":
                     WebDriverManager.edgedriver().setup();
                     driver = new EdgeDriver();
+                    driver.manage().window().maximize();
                     break;
 
                 case "safari":
@@ -101,7 +105,7 @@ public class Driver {
                     driver = new SafariDriver();
                     break;
             }
-            driver.manage().window().maximize();
+
         }
 
         return driver;
